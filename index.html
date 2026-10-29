@@ -1,1 +1,1309 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chanie.studio | Portfolio Chụp Ảnh Studio & Ngoại Cảnh Vibe Hàn Quốc</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond (Serif) & Quicksand / Plus Jakarta Sans (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFFDF9',
+                        warmWhite: '#FFFFFF',
+                        pastelPink: '#FCE4EC',
+                        softPink: '#F8BBD0',
+                        roseAccent: '#E09F9F',
+                        roseDeep: '#C97A7E',
+                        charcoalBrown: '#4A403A',
+                        mutedBrown: '#8C7A70',
+                        beigeBorder: '#F3E5E0'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        rounded: ['"Quicksand"', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'dreamy': '0 12px 35px -8px rgba(224, 159, 159, 0.22)',
+                        'polaroid': '0 15px 30px -5px rgba(74, 64, 58, 0.08)',
+                        'soft': '0 4px 20px -2px rgba(248, 187, 208, 0.35)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FFFDF9;
+            color: #4A403A;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFDF9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F8BBD0;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E09F9F;
+        }
+
+        /* Floating Polaroid Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(-3deg); }
+            50% { transform: translateY(-10px) rotate(-1.5deg); }
+        }
+        @keyframes floatSlowReverse {
+            0%, 100% { transform: translateY(0px) rotate(4deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        .animate-polaroid-1 {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+        .animate-polaroid-2 {
+            animation: floatSlowReverse 7s ease-in-out infinite;
+        }
+
+        /* Pastel Background Blobs */
+        .pastel-blob {
+            filter: blur(65px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Tape Effect on Polaroids */
+        .washi-tape {
+            background: rgba(252, 228, 236, 0.75);
+            backdrop-filter: blur(2px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        /* A soft entrance and floating keepsakes for the welcome message. */
+        .hero-headline {
+            position: relative;
+            text-wrap: balance;
+            animation: welcomeReveal 900ms ease-out both;
+        }
+        .hero-sweet {
+            text-decoration: underline;
+            text-decoration-color: #F8BBD0;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 7px;
+        }
+        #hero-bio-text { animation: welcomeReveal 900ms 150ms ease-out both; }
+        .hero-hearts { pointer-events: none; position: absolute; inset: -20px -6px; }
+        .hero-heart { position: absolute; color: #C97A7E; animation: heartDrift 5s ease-in-out infinite; }
+        .hero-heart-one { top: -9px; right: 8%; font-size: 25px; }
+        .hero-heart-two { bottom: -8px; right: 2%; font-size: 16px; color: #E09F9F; animation-delay: -2s; }
+        .hero-heart-three { top: 30%; left: -12px; font-size: 19px; animation-delay: -3s; }
+        @keyframes welcomeReveal {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heartDrift {
+            0%, 100% { transform: translateY(0) rotate(-9deg); opacity: .6; }
+            50% { transform: translateY(-9px) rotate(9deg); opacity: 1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-headline, #hero-bio-text, .hero-heart,
+            .animate-polaroid-1, .animate-polaroid-2 { animation: none; }
+        }
+    </style>
+</head>
+<body class="selection:bg-softPink selection:text-charcoalBrown relative">
+
+    <!-- Ambient Pastel Blobs -->
+    <div class="fixed top-[-10%] left-[-5%] w-96 h-96 rounded-full bg-pastelPink/60 pastel-blob"></div>
+    <div class="fixed bottom-[-15%] right-[-5%] w-[28rem] h-[28rem] rounded-full bg-softPink/30 pastel-blob"></div>
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-beigeBorder transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-center shrink-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roseDeep" aria-label="Chanie.studio — Trang chủ">
+                <img src="/assets/chanie-studio-logo.jpg" alt="Chanie Studio" width="140" height="70" class="w-[140px] h-[70px] object-cover">
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-charcoalBrown/85">
+                <a href="#home" class="hover:text-roseDeep transition py-1">Trang chủ</a>
+                <a href="#about" class="hover:text-roseDeep transition py-1">Giới thiệu</a>
+                <a href="#gallery" class="hover:text-roseDeep transition py-1">Bộ sưu tập</a>
+                <a href="#pricing" class="hover:text-roseDeep transition py-1">Bảng giá & Dịch vụ</a>
+                <a href="#contact" class="hover:text-roseDeep transition py-1">Liên hệ</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="hidden md:flex items-center gap-3">
+                <a href="https://www.instagram.com/chanie.studio.dn/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-warmWhite border border-beigeBorder text-roseDeep hover:bg-pastelPink transition flex items-center justify-center shadow-sm" title="Instagram @chanie.studio.dn">
+                    <i class="ph-fill ph-instagram-logo text-lg"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61567865715768" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full bg-warmWhite border border-beigeBorder text-roseDeep hover:bg-pastelPink transition flex items-center justify-center shadow-sm" title="Facebook Chanie.studio">
+                    <i class="ph-fill ph-facebook-logo text-lg"></i>
+                </a>
+                <a href="#contact" class="px-5 py-2.5 rounded-full text-sm font-rounded font-bold bg-gradient-to-r from-softPink to-roseAccent text-charcoalBrown hover:opacity-95 transition shadow-soft flex items-center gap-2">
+                    <i class="ph-fill ph-calendar-heart"></i>
+                    <span>Đặt lịch ngay</span>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <div class="flex items-center gap-2 md:hidden">
+                <a href="tel:0339299325" class="p-2.5 rounded-full bg-pastelPink/60 text-roseDeep" aria-label="Gọi ngay">
+                    <i class="ph-fill ph-phone-call text-lg"></i>
+                </a>
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-warmWhite border border-beigeBorder text-charcoalBrown" aria-label="Menu">
+                    <i id="mobile-menu-icon" class="ph ph-list text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-warmWhite/95 backdrop-blur-md border-b border-beigeBorder px-6 py-5 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block py-2 font-medium text-charcoalBrown hover:text-roseDeep">Trang chủ</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 font-medium text-charcoalBrown hover:text-roseDeep">Giới thiệu (About Me)</a>
+            <a href="#gallery" onclick="toggleMobileMenu()" class="block py-2 font-medium text-charcoalBrown hover:text-roseDeep">Bộ sưu tập ảnh</a>
+            <a href="#pricing" onclick="toggleMobileMenu()" class="block py-2 font-medium text-charcoalBrown hover:text-roseDeep">Bảng giá & Dịch vụ</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 font-medium text-charcoalBrown hover:text-roseDeep">Liên hệ & Đặt lịch</a>
+            <div class="pt-2 flex flex-col gap-2">
+                <a href="#contact" onclick="toggleMobileMenu()" class="w-full py-3 rounded-full text-center font-rounded font-bold bg-softPink text-charcoalBrown shadow-sm">
+                    Đặt Lịch Chụp Ngay
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 1. HERO SECTION (TRANG CHỦ) -->
+    <section id="home" class="relative pt-8 pb-20 md:py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Column: Text & CTAs -->
+                <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pastelPink border border-softPink/70 text-roseDeep text-xs font-rounded font-bold tracking-wide shadow-sm">
+                        <i class="ph-fill ph-camera text-sm"></i>
+                        <span>CHANIE.STUDIO • KOREAN SWEET AESTHETIC</span>
+                    </div>
+
+                    <div class="hero-welcome relative">
+                        <div class="hero-hearts" aria-hidden="true">
+                            <i class="ph-fill ph-heart hero-heart hero-heart-one"></i>
+                            <i class="ph-fill ph-heart hero-heart hero-heart-two"></i>
+                            <i class="ph-fill ph-sparkle hero-heart hero-heart-three"></i>
+                        </div>
+                        <h1 class="hero-headline font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoalBrown leading-[1.15]">
+                            ĐỂ CHANIE LÀ NƠI LƯU GIỮ <span class="hero-sweet text-roseDeep">THANH XUÂN NGỌT NGÀO</span> CỦA BẠN NHÉ
+                        </h1>
+                    </div>
+
+                    <p id="hero-bio-text" class="text-base sm:text-lg text-mutedBrown leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        Hi babe ghé thăm Chanie nè, các em ghệ tone hồng đã sẵn sàng để nhận lại những bộ ảnh xinh yêu từ studio chưa? Hãy nhấp vào mục dưới này để xem bảng giá và những album ảnh mà sốp đã chụp nhe
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#gallery" class="w-full sm:w-auto px-8 py-4 rounded-full bg-charcoalBrown text-cream font-rounded font-bold text-sm hover:bg-roseDeep transition duration-300 shadow-dreamy flex items-center justify-center gap-2.5 group">
+                            <span>Khám Phá Bộ Sưu Tập</span>
+                            <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition"></i>
+                        </a>
+                        <a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-full bg-warmWhite border-2 border-softPink text-charcoalBrown font-rounded font-bold text-sm hover:bg-pastelPink/60 transition duration-300 flex items-center justify-center gap-2">
+                            <i class="ph-fill ph-sparkle text-roseDeep"></i>
+                            <span>Tính Giá & Chọn Concept</span>
+                        </a>
+                    </div>
+
+                    <!-- Mini Highlights -->
+                    <div class="pt-6 grid grid-cols-3 gap-4 border-t border-beigeBorder max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="font-serif text-2xl sm:text-3xl font-bold text-charcoalBrown">200+</p>
+                            <p class="text-xs text-mutedBrown">Bộ ảnh nàng thơ</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl sm:text-3xl font-bold text-roseDeep">Nhỏ xinh</p>
+                            <p class="text-xs text-mutedBrown">Không gian gần gũi</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-2xl sm:text-3xl font-bold text-charcoalBrown">Tận tâm</p>
+                            <p class="text-xs text-mutedBrown">Hỗ trợ makeup & tạo dáng</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Korean Polaroid / Film Frame Collage -->
+                <div class="lg:col-span-6 relative flex items-center justify-center min-h-[420px] sm:min-h-[500px]">
+                    <!-- Decorative Circle Behind -->
+                    <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-pastelPink via-softPink/40 to-warmWhite border border-softPink/50 absolute"></div>
+
+                    <!-- Polaroid Card 1: Studio Highlight -->
+                    <div class="relative z-10 w-60 sm:w-72 bg-warmWhite p-3.5 pb-6 rounded-2xl shadow-polaroid border border-beigeBorder animate-polaroid-1 -ml-12 sm:-ml-24 -mt-8">
+                        <div class="washi-tape w-24 h-6 -top-3 left-1/2 -translate-x-1/2 absolute rotate-[-2deg] rounded-sm"></div>
+                        <div class="aspect-[3/4] rounded-xl overflow-hidden bg-pastelPink relative">
+                            <img src="/assets/chanie-pink-studio-1.png" alt="Bộ ảnh studio tone hồng với trang phục ngọt ngào và bóng trái tim" width="1080" height="1350" class="w-full h-full object-contain bg-warmWhite">
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-warmWhite/85 backdrop-blur-sm text-[10px] font-rounded font-bold text-roseDeep">
+                                Studio tone hồng
+                            </span>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <p class="font-serif italic text-lg text-charcoalBrown font-semibold">Pink Candy Muse</p>
+                            <p class="text-[11px] text-mutedBrown">Ánh sáng mịn màng, ngọt ngào</p>
+                        </div>
+                    </div>
+
+                    <!-- Polaroid Card 2: Pink Studio Highlight -->
+                    <div class="relative z-20 w-60 sm:w-72 bg-warmWhite p-3.5 pb-6 rounded-2xl shadow-polaroid border border-beigeBorder animate-polaroid-2 -ml-8 sm:-ml-12 mt-20">
+                        <div class="washi-tape w-24 h-6 -top-3 left-1/2 -translate-x-1/2 absolute rotate-[3deg] rounded-sm"></div>
+                        <div class="aspect-[3/4] rounded-xl overflow-hidden bg-pastelPink relative">
+                            <img src="/assets/chanie-pink-studio-2.png" alt="Concept studio với váy hồng và bóng trái tim hồng" width="1080" height="1350" class="w-full h-full object-contain bg-warmWhite">
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-warmWhite/85 backdrop-blur-sm text-[10px] font-rounded font-bold text-charcoalBrown">
+                                Concept ngọt ngào
+                            </span>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <p class="font-serif italic text-lg text-charcoalBrown font-semibold">Sweet Pink Heart</p>
+                            <p class="text-[11px] text-mutedBrown">Một chút hồng, một chút đáng yêu</p>
+                        </div>
+                    </div>
+
+                    <!-- Floating Aesthetic Badge -->
+                    <div class="absolute bottom-2 left-4 sm:left-10 z-30 bg-warmWhite/95 backdrop-blur-md px-4 py-3 rounded-2xl shadow-dreamy border border-softPink flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-pastelPink flex items-center justify-center text-roseDeep">
+                            <i class="ph-fill ph-heart text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-charcoalBrown">Hướng dẫn tạo dáng tận tâm</p>
+                            <p class="text-[11px] text-mutedBrown">Không lo ngại ống kính!</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. GIỚI THIỆU (ABOUT ME & STUDIO) -->
+    <section id="about" class="py-20 bg-warmWhite border-y border-beigeBorder relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-rounded font-bold uppercase tracking-widest text-roseDeep bg-pastelPink px-3.5 py-1 rounded-full">Làm quen với mình nha</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoalBrown mt-3">Cô bé đứng sau <span id="about-studio-name" class="italic text-roseDeep">Chanie.studio</span></h2>
+                <p class="text-sm sm:text-base text-mutedBrown mt-3">Studio nhỏ xinh, một cô bé thân thiện và thật nhiều bộ ảnh đáng yêu dành cho bạn.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-5 relative rounded-3xl border border-softPink bg-pastelPink/40 p-7 sm:p-10 text-center shadow-dreamy">
+                    <div class="mx-auto mb-7 max-w-[288px] overflow-hidden rounded-3xl border border-softPink/60 shadow-soft">
+                        <img src="/assets/chanie-chibi.png" alt="Chibi Chanie tóc nâu mái thưa, nháy mắt, mặc trang phục kem và cầm máy ảnh" width="1024" height="1024" loading="lazy" decoding="async" class="block w-full h-auto">
+                    </div>
+                    <p class="text-xs font-rounded font-bold tracking-widest text-roseDeep uppercase">Một chút về mình</p>
+                    <h3 class="font-serif text-3xl sm:text-4xl font-bold text-charcoalBrown mt-3">Chụp ảnh xinh,<br><span class="italic text-roseDeep">mình cùng vui nữa!</span></h3>
+                    <p class="text-sm text-mutedBrown leading-relaxed mt-5">Mình là cô bé đáng yêu đứng sau Chanie đây! Mình thích những buổi chụp có tiếng cười, những câu chuyện nhỏ và khoảnh khắc bạn thấy: “Ủa, mình cũng xinh quá nè!”</p>
+                    <div class="mt-6 pt-5 border-t border-softPink/70 flex flex-wrap justify-center gap-2 font-rounded text-xs font-semibold text-charcoalBrown">
+                        <span class="px-3 py-2 rounded-full bg-warmWhite">Nhỏ xinh</span>
+                        <span class="px-3 py-2 rounded-full bg-warmWhite">Dễ gần</span>
+                        <span class="px-3 py-2 rounded-full bg-warmWhite">Chăm chút từng ảnh</span>
+                    </div>
+                </div>
+                <div class="lg:col-span-7 space-y-5">
+                    <h3 class="font-serif text-2xl sm:text-3xl font-bold text-charcoalBrown">Bạn cứ là bạn,<br><span class="text-roseDeep italic">còn lại để Chanie lo nha.</span></h3>
+                    <p class="text-sm sm:text-base text-mutedBrown leading-relaxed">Dù đây là lần đầu đứng trước ống kính hay bạn chưa biết mình hợp concept nào, mình luôn ở đây để lắng nghe, tư vấn và đồng hành cùng bạn từ lúc lên ý tưởng đến khi bấm máy.</p>
+                    <div class="p-5 rounded-2xl bg-cream border border-beigeBorder flex items-start gap-4 hover:border-softPink transition">
+                        <div aria-hidden="true" class="w-11 h-11 rounded-2xl bg-pastelPink text-roseDeep flex items-center justify-center shrink-0"><i class="ph-fill ph-smiley-wink text-2xl"></i></div>
+                        <div><h4 class="font-rounded font-bold text-charcoalBrown text-sm sm:text-base">Posing A–Z, không lo tạo dáng đơ</h4><p class="text-xs sm:text-sm text-mutedBrown leading-relaxed mt-2">Không biết để tay đâu hay nhìn hướng nào cũng không sao! Mình hướng dẫn từng dáng, góc mặt và biểu cảm để bạn dần thả lỏng, lên hình tự nhiên và xinh theo cách của mình.</p></div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-cream border border-beigeBorder flex items-start gap-4 hover:border-softPink transition">
+                        <div aria-hidden="true" class="w-11 h-11 rounded-2xl bg-pastelPink text-roseDeep flex items-center justify-center shrink-0"><i class="ph-fill ph-magic-wand text-2xl"></i></div>
+                        <div><h4 class="font-rounded font-bold text-charcoalBrown text-sm sm:text-base">Concept, makeup & tóc hợp với bạn</h4><p class="text-xs sm:text-sm text-mutedBrown leading-relaxed mt-2">Mình tư vấn kỹ concept, tone makeup và kiểu tóc theo nét riêng, sở thích của bạn. Tụi mình cùng chọn một tổng thể hài hòa để bạn thấy tự tin nhất trước buổi chụp.</p></div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-cream border border-beigeBorder flex items-start gap-4 hover:border-softPink transition">
+                        <div aria-hidden="true" class="w-11 h-11 rounded-2xl bg-pastelPink text-roseDeep flex items-center justify-center shrink-0"><i class="ph-fill ph-heart text-2xl"></i></div>
+                        <div><h4 class="font-rounded font-bold text-charcoalBrown text-sm sm:text-base">Thoải mái như đi chơi cùng bạn thân</h4><p class="text-xs sm:text-sm text-mutedBrown leading-relaxed mt-2">Không khí thân thiện, thoải mái từ cô bé đáng yêu là mình đây! Cứ trò chuyện, cười đùa và nói điều bạn thích; tụi mình chụp chậm một chút cũng được, miễn bạn thấy vui và dễ chịu.</p></div>
+                    </div>
+                    <a href="#contact" class="inline-flex items-center gap-2 rounded-full px-6 py-3 bg-pastelPink border border-softPink font-rounded font-bold text-sm text-charcoalBrown hover:bg-softPink transition">Kể mình nghe concept bạn thích nha <i aria-hidden="true" class="ph-bold ph-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. BỘ SƯU TẬP ẢNH / DỰ ÁN (INTERACTIVE GALLERY) -->
+    <section id="gallery" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-rounded font-bold uppercase tracking-widest text-roseDeep bg-pastelPink px-3.5 py-1 rounded-full">Lookbook & Projects</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoalBrown mt-3">Bộ Sưu Tập Khoảnh Khắc</h2>
+                <p class="text-sm sm:text-base text-mutedBrown mt-2">Chạm vào từng bức ảnh để xem chi tiết ánh sáng, concept và đặt lịch theo mẫu bạn yêu thích.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10" id="gallery-filters">
+                <button onclick="filterGallery('all')" data-filter="all" class="gallery-tab active px-5 py-2.5 rounded-full text-xs sm:text-sm font-rounded font-bold transition shadow-sm bg-charcoalBrown text-cream">
+                    Tất cả Concept
+                </button>
+                <button onclick="filterGallery('studio')" data-filter="studio" class="gallery-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-rounded font-bold transition bg-warmWhite border border-beigeBorder text-charcoalBrown hover:border-softPink">
+                    ✨ Chụp tại Studio (Korean Vibe)
+                </button>
+            </div>
+
+            <!-- Gallery Grid (Rendered by JS) -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. BẢNG GIÁ & DỊCH VỤ (PRICING & INTERACTIVE ESTIMATOR) -->
+    <section id="pricing" class="py-20 bg-gradient-to-b from-pastelPink/35 via-warmWhite to-cream border-t border-beigeBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs font-rounded font-bold uppercase tracking-widest text-roseDeep bg-warmWhite border border-softPink px-3.5 py-1 rounded-full">Bảng Giá & Dịch Vụ</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-charcoalBrown mt-3">Các Gói Chụp Tại Chanie.studio</h2>
+                <p id="pricing-updated-label" class="text-sm sm:text-base text-mutedBrown mt-2">Chi phí minh bạch, linh hoạt theo nhu cầu cá nhân hoặc thương hiệu của bạn.</p>
+            </div>
+
+            <!-- Seasonal Promo Banner (Dynamic) -->
+            <div id="promo-banner-wrapper" class="max-w-3xl mx-auto mb-12">
+                <div class="bg-warmWhite/90 border border-softPink rounded-2xl px-5 py-3.5 shadow-soft flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                    <div class="flex items-center gap-3">
+                        <span class="w-9 h-9 rounded-full bg-pastelPink text-roseDeep flex items-center justify-center shrink-0">
+                            <i class="ph-fill ph-gift text-lg"></i>
+                        </span>
+                        <p id="promo-banner-text" class="text-xs sm:text-sm font-medium text-charcoalBrown"></p>
+                    </div>
+                    <a href="#contact" class="px-4 py-1.5 rounded-full bg-pastelPink hover:bg-softPink text-roseDeep font-rounded font-bold text-xs shrink-0 transition">
+                        Nhận ưu đãi ngay
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Packages (Rendered Dynamically by JS) -->
+            <div id="pricing-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+                <!-- Populated by renderPricingSection() -->
+            </div>
+
+            <!-- Interactive Quick Cost Estimator (Tính Nhanh Chi Phí & Dịch Vụ Cộng Thêm) -->
+            <div class="mt-14 bg-warmWhite rounded-3xl p-6 sm:p-10 border border-softPink shadow-soft max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-beigeBorder">
+                    <div>
+                        <span class="text-xs font-rounded font-bold text-roseDeep uppercase tracking-wider">✨ Tiện Ích Tính Giá Tự Động</span>
+                        <h3 class="font-serif text-2xl font-bold text-charcoalBrown mt-1">Tùy Chỉnh Gói Chụp & Dịch Vụ Đi Kèm</h3>
+                        <p class="text-xs text-mutedBrown mt-1">Tích chọn các dịch vụ cộng thêm để ước tính tổng chi phí buổi chụp của bạn.</p>
+                    </div>
+                    <div class="text-left md:text-right bg-pastelPink/50 px-5 py-3 rounded-2xl border border-softPink">
+                        <span class="text-xs text-mutedBrown block">Chi phí dự kiến:</span>
+                        <span id="calc-total-display" class="font-serif text-3xl font-bold text-roseDeep">1.500.000đ</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+                    <!-- Select Base Package -->
+                    <div>
+                        <label class="block text-xs font-rounded font-bold uppercase text-charcoalBrown mb-2">1. Chọn gói chụp chính:</label>
+                        <select id="calc-base-package" onchange="updateCalculator()" class="w-full px-4 py-3 rounded-xl bg-cream border border-beigeBorder text-sm font-medium text-charcoalBrown focus:outline-none focus:border-roseDeep">
+                            <!-- Populated dynamically -->
+                        </select>
+
+                        <p class="text-xs text-mutedBrown mt-4 leading-relaxed">
+                            💡 <strong>Mẹo nhỏ:</strong> Khi bạn nhấn nút <em>"Áp dụng gói này vào Form Đặt Lịch"</em> bên dưới, toàn bộ lựa chọn này sẽ tự động điền sẵn vào form liên hệ!
+                        </p>
+                    </div>
+
+                    <!-- Select Add-ons -->
+                    <div class="space-y-2.5">
+                        <label class="block text-xs font-rounded font-bold uppercase text-charcoalBrown mb-2">2. Dịch vụ cộng thêm (Add-ons):</label>
+                        <div id="calc-addons-container" class="space-y-2.5">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-5 border-t border-beigeBorder flex flex-wrap items-center justify-between gap-3">
+                    <button onclick="openPricingManager()" class="text-xs font-rounded font-semibold text-mutedBrown hover:text-roseDeep transition flex items-center gap-1.5">
+                        <i class="ph ph-sliders-horizontal"></i>
+                        <span>Cập nhật bảng giá (Dành cho Chủ Studio)</span>
+                    </button>
+                    <button onclick="applyCalculatorToBooking()" class="px-6 py-3 rounded-full bg-gradient-to-r from-softPink to-roseAccent text-charcoalBrown font-rounded font-bold text-sm hover:opacity-95 transition shadow-sm flex items-center gap-2">
+                        <i class="ph-fill ph-check-fat"></i>
+                        <span>Áp dụng gói này vào Form Đặt Lịch</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. THÔNG TIN LIÊN HỆ & ĐẶT LỊCH (CONTACT & BIO LINKS) -->
+    <section id="contact" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left Column: Korean Bio Card & Social Links (5 cols) -->
+                <div class="lg:col-span-5 bg-warmWhite rounded-3xl p-7 sm:p-9 border border-beigeBorder shadow-polaroid relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-24 bg-gradient-to-r from-pastelPink via-softPink/70 to-pastelPink"></div>
+                    
+                    <div class="relative z-10 flex flex-col items-center text-center mt-6">
+                        <div class="w-24 h-24 rounded-full p-1 bg-warmWhite shadow-md border border-softPink">
+                            <img src="/assets/chanie-studio-logo.jpg"
+                                 alt="Logo Chanie Studio" width="1000" height="1000" loading="lazy"
+                                 class="w-full h-full object-contain rounded-full">
+                        </div>
+                        <h3 id="contact-card-name" class="font-serif text-2xl font-bold text-charcoalBrown mt-3">Chanie.studio</h3>
+                        <p class="text-xs font-rounded font-semibold text-roseDeep">✨ Korean Vibe Studio & Outdoor Photography ✨</p>
+                        <p class="text-xs text-mutedBrown mt-2 max-w-xs">
+                            Liên hệ trực tiếp với Chanie.studio qua các kênh bên dưới hoặc để lại lịch hẹn để tụi mình tư vấn concept miễn phí nhé!
+                        </p>
+                    </div>
+
+                    <!-- Direct Contact Info List -->
+                    <div class="mt-6 space-y-3 pt-6 border-t border-beigeBorder text-sm">
+                        <div class="flex items-center justify-between p-3 rounded-2xl bg-cream border border-beigeBorder">
+                            <a href="tel:0339299325" class="flex items-center gap-3 group">
+                                <div class="w-9 h-9 rounded-xl bg-pastelPink text-roseDeep flex items-center justify-center group-hover:bg-softPink transition">
+                                    <i class="ph-fill ph-phone-call text-lg"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] text-mutedBrown block">Hotline / Zalo</span>
+                                    <span id="contact-phone-display" class="font-bold text-charcoalBrown group-hover:text-roseDeep transition">0339 299 325</span>
+                                </div>
+                            </a>
+                            <div class="flex items-center gap-1.5">
+                                <a href="https://zalo.me/0339299325" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-lg bg-pastelPink text-roseDeep text-xs font-rounded font-bold hover:bg-softPink transition">
+                                    Zalo
+                                </a>
+                                <button onclick="copyTextValue('0339299325', 'Đã sao chép Số điện thoại 0339299325!')" class="px-2.5 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder text-xs font-rounded font-semibold text-mutedBrown hover:text-roseDeep transition">
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 rounded-2xl bg-cream border border-beigeBorder">
+                            <a href="mailto:chanie.studio.dn@gmail.com" class="flex items-center gap-3 overflow-hidden group">
+                                <div class="w-9 h-9 rounded-xl bg-pastelPink text-roseDeep flex items-center justify-center shrink-0 group-hover:bg-softPink transition">
+                                    <i class="ph-fill ph-envelope-simple text-lg"></i>
+                                </div>
+                                <div class="truncate">
+                                    <span class="text-[11px] text-mutedBrown block">Email nhận Booking</span>
+                                    <span id="contact-email-display" class="font-bold text-charcoalBrown truncate block group-hover:text-roseDeep transition">chanie.studio.dn@gmail.com</span>
+                                </div>
+                            </a>
+                            <button onclick="copyTextValue('chanie.studio.dn@gmail.com', 'Đã sao chép Email chanie.studio.dn@gmail.com!')" class="px-3 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder text-xs font-rounded font-semibold text-mutedBrown hover:text-roseDeep transition shrink-0">
+                                Copy
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 rounded-2xl bg-cream border border-beigeBorder">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-pastelPink text-roseDeep flex items-center justify-center shrink-0">
+                                    <i class="ph-fill ph-map-pin text-lg"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] text-mutedBrown block">Địa chỉ Studio</span>
+                                    <span id="contact-address-display" class="font-bold text-charcoalBrown text-xs sm:text-sm">53 Phan Xích Long, Đà Nẵng</span>
+                                </div>
+                            </div>
+                            <button onclick="copyTextValue('53 Phan Xích Long, Đà Nẵng', 'Đã sao chép địa chỉ Studio!')" class="px-3 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder text-xs font-rounded font-semibold text-mutedBrown hover:text-roseDeep transition shrink-0">
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Social Links (Korean Bio Style) -->
+                    <div class="mt-6 pt-5 border-t border-beigeBorder">
+                        <p class="text-xs font-rounded font-bold uppercase tracking-wider text-mutedBrown text-center mb-3">Kết nối Mạng Xã Hội Chanie.studio</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <a href="https://www.instagram.com/chanie.studio.dn/" target="_blank" rel="noopener noreferrer" class="p-3 rounded-2xl bg-pastelPink/60 hover:bg-softPink/70 border border-softPink transition flex items-center justify-center gap-2 text-xs font-rounded font-bold text-charcoalBrown">
+                                <i class="ph-fill ph-instagram-logo text-lg text-roseDeep"></i>
+                                <span>@chanie.studio.dn</span>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=61567865715768" target="_blank" rel="noopener noreferrer" class="p-3 rounded-2xl bg-pastelPink/60 hover:bg-softPink/70 border border-softPink transition flex items-center justify-center gap-2 text-xs font-rounded font-bold text-charcoalBrown">
+                                <i class="ph-fill ph-facebook-logo text-lg text-roseDeep"></i>
+                                <span>Facebook Chanie.studio</span>
+                            </a>
+                            <a href="https://www.tiktok.com/@chanie.studio?lang=vi-VN" target="_blank" rel="noopener noreferrer" class="p-3 rounded-2xl bg-pastelPink/60 hover:bg-softPink/70 border border-softPink transition flex items-center justify-center gap-2 text-xs font-rounded font-bold text-charcoalBrown sm:col-span-2">
+                                <i class="ph-fill ph-tiktok-logo text-lg text-roseDeep"></i>
+                                <span>TikTok: @chanie.studio</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Booking Form (7 cols) -->
+                <div class="lg:col-span-7 bg-warmWhite rounded-3xl p-7 sm:p-10 border border-beigeBorder shadow-polaroid">
+                    <span class="text-xs font-rounded font-bold uppercase tracking-widest text-roseDeep bg-pastelPink px-3.5 py-1 rounded-full">Đặt Lịch Chụp Ảnh</span>
+                    <h3 class="font-serif text-3xl font-bold text-charcoalBrown mt-3">Gửi Yêu Cầu Giữ Lịch Hẹn</h3>
+                    <p class="text-sm text-mutedBrown mt-1">Điền thông tin bên dưới, Chanie.studio sẽ liên hệ lại qua Zalo/SĐT hoặc bạn có thể gửi nhanh tin nhắn đặt lịch qua Messenger/Zalo.</p>
+
+                    <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="mt-7 space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-rounded font-bold uppercase text-charcoalBrown mb-2">Họ và tên của bạn *</label>
+                                <input type="text" id="book-name" required placeholder="VD: Nguyễn Bảo Ngọc" class="w-full px-4 py-3 rounded-xl bg-cream border border-beigeBorder text-sm focus:outline-none focus:border-roseDeep">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-rounded font-bold uppercase text-charcoalBrown mb-2">Số điện thoại / Zalo *</label>
+                                <input type="tel" id="book-phone" required placeholder="VD: 0905 xxx xxx" class="w-full px-4 py-3 rounded-xl bg-cream border border-beigeBorder text-sm focus:outline-none focus:border-roseDeep">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-rounded font-bold uppercase text-charcoalBrown mb-2">Gói chụp / Concept quan tâm *</label>
+                                <input type="text" id="book-package" required value="Gói Ngoại Cảnh Nàng Thơ (1.500.000đ)" class="w-full px-4 py-3 rounded-xl bg-pastelPink/35 border border-softPink text-sm font-semibold text-charcoalBrown focus:outline-none focus:border-roseDeep">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-rounded font-bold uppercase text-charcoalBrown mb-2">Ngày dự kiến chụp</label>
+                                <input type="date" id="book-date" class="w-full px-4 py-3 rounded-xl bg-cream border border-beigeBorder text-sm focus:outline-none focus:border-roseDeep">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-rounded font-bold uppercase text-charcoalBrown mb-2">Ghi chú thêm về mong muốn của bạn</label>
+                            <textarea id="book-note" rows="3" placeholder="Bạn thích tone màu hồng phấn hay kem ấm? Có cần Chanie chuẩn bị hoa tươi hay bánh kem sinh nhật không..." class="w-full px-4 py-3 rounded-xl bg-cream border border-beigeBorder text-sm focus:outline-none focus:border-roseDeep"></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            <button type="submit" class="w-full py-4 rounded-full bg-charcoalBrown hover:bg-roseDeep text-cream font-rounded font-bold text-sm transition duration-300 shadow-dreamy flex items-center justify-center gap-2">
+                                <i class="ph-fill ph-paper-plane-tilt text-lg"></i>
+                                <span>Tạo Phiếu Đặt Lịch & Copy</span>
+                            </button>
+                            <a href="https://zalo.me/0339299325" target="_blank" rel="noopener noreferrer" class="w-full py-4 rounded-full bg-pastelPink hover:bg-softPink text-charcoalBrown font-rounded font-bold text-sm transition duration-300 flex items-center justify-center gap-2 border border-softPink">
+                                <i class="ph-fill ph-chat-circle-dots text-lg text-roseDeep"></i>
+                                <span>Nhắn Zalo: 0339 299 325</span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-warmWhite border-t border-beigeBorder py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div class="flex flex-col sm:flex-row items-center gap-2">
+                <a href="#home" class="shrink-0 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roseDeep" aria-label="Chanie.studio — Trang chủ">
+                    <img src="/assets/chanie-studio-logo.jpg" alt="Chanie Studio" width="112" height="56" loading="lazy" class="w-28 h-14 object-cover">
+                </a>
+                <span class="text-xs text-mutedBrown">— 53 Phan Xích Long • SĐT: 0339 299 325</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <p class="text-xs text-mutedBrown">
+                    © 2026 Chanie.studio. All rights reserved.
+                </p>
+                <button onclick="openPricingManager()" class="px-3 py-1.5 rounded-full bg-cream border border-beigeBorder hover:border-softPink text-[11px] font-rounded font-semibold text-mutedBrown hover:text-roseDeep transition flex items-center gap-1" title="Dành cho chủ Studio cập nhật bảng giá theo từng thời điểm">
+                    <i class="ph-fill ph-lock-key text-xs"></i>
+                    <span>Quản lý Bảng Giá</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX MODAL (XEM CHI TIẾT ẢNH TRONG GALLERY) -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-charcoalBrown/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-warmWhite rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-softPink grid grid-cols-1 md:grid-cols-12 relative animate-fadeIn">
+            <button onclick="closeLightbox()" aria-label="Đóng album" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-warmWhite/90 text-charcoalBrown hover:bg-pastelPink flex items-center justify-center shadow-sm">
+                <i class="ph-bold ph-x text-lg"></i>
+            </button>
+            <div class="md:col-span-7 bg-pastelPink aspect-[4/5] md:aspect-auto">
+                <img id="lightbox-img" src="" alt="" class="w-full h-full object-contain max-h-[75vh]">
+            </div>
+            <div class="md:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-cream">
+                <div>
+                    <span id="lightbox-badge" class="px-3 py-1 rounded-full bg-pastelPink text-roseDeep text-xs font-rounded font-bold">Studio Concept</span>
+                    <h3 id="lightbox-title" class="font-serif text-2xl font-bold text-charcoalBrown mt-3">Sweet Pastel Muse</h3>
+                    <div id="lightbox-album-controls" class="hidden mt-4">
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <button type="button" onclick="changeAlbumPhoto(-1)" aria-label="Ảnh trước" class="rounded-full border border-beigeBorder px-3 py-2 hover:bg-pastelPink">&#8592;</button>
+                            <span id="lightbox-photo-count" aria-live="polite" class="text-xs font-rounded text-mutedBrown"></span>
+                            <button type="button" onclick="changeAlbumPhoto(1)" aria-label="Ảnh tiếp theo" class="rounded-full border border-beigeBorder px-3 py-2 hover:bg-pastelPink">&#8594;</button>
+                        </div>
+                        <div id="lightbox-thumbnails" class="grid grid-cols-4 gap-2"></div>
+                    </div>
+                    <p id="lightbox-desc" class="text-xs sm:text-sm text-mutedBrown mt-2 leading-relaxed"></p>
+                    
+                    <div class="mt-5 pt-4 border-t border-beigeBorder space-y-2 text-xs text-charcoalBrown">
+                        <div class="flex items-center gap-2">
+                            <i class="ph-fill ph-sun text-roseDeep"></i>
+                            <span id="lightbox-lighting">Ánh sáng: Keylight mịn màng</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="ph-fill ph-palette text-roseDeep"></i>
+                            <span>Tone màu: Hồng Pastel & Trắng Kem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-beigeBorder">
+                    <button id="lightbox-book-btn" class="w-full py-3 rounded-full bg-charcoalBrown hover:bg-roseDeep text-cream font-rounded font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                        <i class="ph-fill ph-calendar-plus"></i>
+                        <span>Đặt lịch chụp theo Concept này</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL QUẢN LÝ & CẬP NHẬT BẢNG GIÁ THEO TỪNG THỜI ĐIỂM (PRICING MANAGER FOR OWNER) -->
+    <div id="pricing-manager-modal" class="fixed inset-0 z-50 hidden bg-charcoalBrown/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-warmWhite rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-softPink overflow-hidden">
+            <!-- Modal Header -->
+            <div class="px-6 py-5 bg-pastelPink/60 border-b border-softPink flex items-center justify-between">
+                <div>
+                    <span class="text-[11px] font-rounded font-bold uppercase tracking-wider text-roseDeep flex items-center gap-1.5">
+                        <i class="ph-fill ph-sparkle"></i> Công cụ Quản trị Bảng giá Chanie.studio
+                    </span>
+                    <h3 class="font-serif text-2xl font-bold text-charcoalBrown">Cập Nhật Bảng Giá Theo Từng Thời Điểm</h3>
+                </div>
+                <button onclick="closePricingManager()" class="w-9 h-9 rounded-full bg-warmWhite text-charcoalBrown hover:bg-softPink/50 flex items-center justify-center transition">
+                    <i class="ph-bold ph-x text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-6 overflow-y-auto space-y-6 text-xs sm:text-sm">
+                
+                <!-- Instructions Banner -->
+                <div class="p-4 rounded-2xl bg-cream border border-beigeBorder text-mutedBrown leading-relaxed">
+                    💡 <strong class="text-charcoalBrown">Hướng dẫn dành cho Chanie.studio:</strong> Bạn có thể thay đổi giá tiền, tên gói, quyền lợi hoặc chương trình ưu đãi theo từng mùa (Tết, Kỷ yếu, Valentine, Sinh nhật...) ngay bên dưới.
+                    <ul class="list-disc list-inside mt-1.5 space-y-1 text-xs">
+                        <li>Bấm <strong>"Áp dụng ngay trên Web"</strong> để kiểm tra giao diện bảng giá mới.</li>
+                        <li>Bấm <strong>"Tải file index.html đã lưu giá mới"</strong> để tải về file web đã gắn cứng bảng giá mới này (dùng để kéo thả cập nhật lên link Netlify / Tiiny.host cho mọi khách hàng cùng thấy).</li>
+                    </ul>
+                </div>
+
+                <!-- 1. Promo Banner Input -->
+                <div class="space-y-3 bg-cream p-4 rounded-2xl border border-beigeBorder">
+                    <label class="font-rounded font-bold text-charcoalBrown block">🎁 Thông báo Ưu đãi / Khuyến mãi theo thời điểm (Để trống nếu muốn ẩn):</label>
+                    <input type="text" id="pm-promo-text" placeholder="VD: 🌸 Ưu đãi Tháng này: Giảm ngay 10% khi đặt lịch nhóm từ 2 nàng thơ trở lên!" class="w-full px-3.5 py-2.5 rounded-xl bg-warmWhite border border-beigeBorder text-charcoalBrown">
+                </div>
+
+                <!-- 2. Edit 3 Main Packages -->
+                <div>
+                    <h4 class="font-rounded font-bold text-charcoalBrown mb-3 uppercase tracking-wider text-xs">📸 Chỉnh sửa 3 Gói Chụp Chính</h4>
+                    <div id="pm-packages-list" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- 3. Edit Add-on Services -->
+                <div class="bg-cream p-4 rounded-2xl border border-beigeBorder">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-rounded font-bold text-charcoalBrown uppercase tracking-wider text-xs">💄 Dịch vụ cộng thêm (Trong bảng tính chi phí)</h4>
+                        <button type="button" onclick="addNewAddonRow()" class="px-3 py-1.5 rounded-full bg-pastelPink hover:bg-softPink text-roseDeep font-rounded font-bold text-xs flex items-center gap-1 transition">
+                            <i class="ph-bold ph-plus"></i> Thêm dịch vụ phụ
+                        </button>
+                    </div>
+                    <div id="pm-addons-list" class="space-y-2.5">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 bg-cream border-t border-beigeBorder flex flex-wrap items-center justify-between gap-3">
+                <button type="button" onclick="resetDefaultPricing()" class="px-4 py-2.5 rounded-full border border-beigeBorder text-mutedBrown hover:text-charcoalBrown font-rounded font-bold text-xs transition">
+                    Khôi phục giá mặc định
+                </button>
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <button type="button" onclick="savePricingChanges(false)" class="px-5 py-2.5 rounded-full bg-pastelPink hover:bg-softPink text-charcoalBrown font-rounded font-bold text-xs transition flex items-center gap-1.5">
+                        <i class="ph-fill ph-check-circle"></i>
+                        <span>Áp dụng ngay trên Web</span>
+                    </button>
+                    <button type="button" onclick="savePricingChanges(true)" class="px-5 py-2.5 rounded-full bg-charcoalBrown hover:bg-roseDeep text-cream font-rounded font-bold text-xs transition shadow-sm flex items-center gap-1.5">
+                        <i class="ph-fill ph-download-simple"></i>
+                        <span>Lưu & Tải file index.html mới</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION BOX -->
+    <div id="toast-box" class="fixed bottom-6 right-6 z-50 hidden bg-charcoalBrown text-cream px-5 py-3.5 rounded-2xl shadow-dreamy border border-softPink flex items-center gap-3 max-w-sm">
+        <div class="w-8 h-8 rounded-full bg-softPink text-charcoalBrown flex items-center justify-center shrink-0">
+            <i class="ph-fill ph-sparkle text-lg"></i>
+        </div>
+        <p id="toast-message" class="text-xs sm:text-sm font-medium"></p>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* === DỮ LIỆU BẢNG GIÁ MẶC ĐỊNH (CÓ THỂ CẬP NHẬT & XUẤT FILE MỚI) === */
+        /* PRICING_DATA_START */
+        const defaultPricingData = {
+            promoText: "🌸 Ưu đãi đặc biệt tại Chanie.studio: Tặng kèm clip Behind-the-scenes & giảm 10% khi đặt lịch nhóm từ 2 bạn!",
+            packages: [
+                {
+                    id: "pkg-studio",
+                    tag: "Phổ biến cho Sinh Nhật / Kỷ Niệm",
+                    name: "Gói Studio Ngọt Ngào",
+                    subtitle: "phông nền tối giản nhưng vẫn đậm nét đáng yêu, sang chảnh",
+                    price: 800000,
+                    unit: "/ 1 buổi chụp (1 tiếng)",
+                    note: "Lưu ý: chưa bao gồm trang phục.",
+                    featured: false,
+                    features: [
+                        "Bao gồm makeup, làm tóc",
+                        "Hỗ trợ phụ kiện",
+                        "Chỉnh sửa 10 ảnh chuyên nghiệp",
+                        "Giao toàn bộ file gốc trong ngày (250 - 400+ file)"
+                    ]
+                },
+                {
+                    id: "pkg-outdoor",
+                    tag: "Nàng Thơ Trong Veo",
+                    name: "Gói Ngoại Cảnh Nàng Thơ",
+                    subtitle: "Săn nắng tự nhiên tại công viên, biển hoặc quán cafe xinh",
+                    price: 1100000,
+                    unit: "/ 1 buổi chụp (1 tiếng 30 phút)",
+                    note: "Lưu ý: chưa bao gồm trang phục.",
+                    featured: true,
+                    features: [
+                        "Tư vấn địa điểm & khung giờ nắng đẹp nhất",
+                        "Thay tối đa 02 trang phục + Hoa cầm tay",
+                        "Chỉnh sửa cao cấp 12 ảnh màu trong trẻo",
+                        "Tặng kèm 01 video clip ngắn Behind-the-scenes",
+                        "Giao toàn bộ file gốc ngay trong ngày"
+                    ]
+                }
+            ],
+            addons: [
+                { label: "Hoa theo yêu cầu", price: 100000 },
+                { label: "Makeup theo yêu cầu", price: 70000 },
+                { label: "Quay & dựng 01 video", price: 100000 }
+            ]
+        };
+        /* PRICING_DATA_END */
+
+        const STORAGE_KEY = 'chanie_studio_pricing_v3';
+        let currentPricing = loadPricingState();
+
+        function loadPricingState() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    return JSON.parse(saved);
+                }
+            } catch (e) {
+                console.warn('Không thể đọc LocalStorage:', e);
+            }
+            return JSON.parse(JSON.stringify(defaultPricingData));
+        }
+
+        // Định dạng tiền tệ VNĐ
+        function formatCurrency(num) {
+            const n = parseInt(num, 10) || 0;
+            return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + 'đ';
+        }
+
+        // Hiển thị toàn bộ khu vực Bảng giá & Bộ tính chi phí tự động
+        function renderPricingSection() {
+            // 1. Promo Banner
+            const promoWrapper = document.getElementById('promo-banner-wrapper');
+            const promoTextEl = document.getElementById('promo-banner-text');
+            if (currentPricing.promoText && currentPricing.promoText.trim() !== '') {
+                promoWrapper.classList.remove('hidden');
+                promoTextEl.textContent = currentPricing.promoText;
+            } else {
+                promoWrapper.classList.add('hidden');
+            }
+
+            // 2. Render các gói chụp
+            const container = document.getElementById('pricing-cards-container');
+            container.innerHTML = currentPricing.packages.map((pkg, idx) => {
+                const isFeatured = pkg.featured;
+                const priceFormatted = formatCurrency(pkg.price);
+                const fullLabel = `${pkg.name} (${priceFormatted})`;
+                const featuresHtml = (pkg.features || []).map(f => `
+                    <li class="flex items-start gap-2.5">
+                        <i class="ph-fill ph-check-circle text-roseDeep text-lg shrink-0 mt-0.5"></i>
+                        <span>${f}</span>
+                    </li>
+                `).join('');
+
+                if (isFeatured) {
+                    return `
+                        <div class="bg-warmWhite rounded-3xl p-7 sm:p-8 border-2 border-roseAccent shadow-dreamy flex flex-col justify-between relative transform lg:-translate-y-3">
+                            <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-roseDeep text-warmWhite text-xs font-rounded font-bold tracking-wider uppercase shadow-sm whitespace-nowrap">
+                                💖 Được Yêu Thích Nhất
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <span class="px-3 py-1 rounded-full text-xs font-rounded font-bold bg-pastelPink text-roseDeep">${pkg.tag}</span>
+                                    <i class="ph-fill ph-flower-lotus text-2xl text-roseDeep"></i>
+                                </div>
+                                <h3 class="font-serif text-2xl font-bold text-charcoalBrown mt-4">${pkg.name}</h3>
+                                <p class="text-xs text-mutedBrown mt-1">${pkg.subtitle}</p>
+                                <div class="my-6 pb-6 border-b border-beigeBorder">
+                                    <span class="font-serif text-4xl font-bold text-roseDeep">${priceFormatted}</span>
+                                    <span class="text-xs text-mutedBrown">${pkg.unit}</span>
+                                </div>
+                                <ul class="space-y-3 text-sm text-charcoalBrown/90">
+                                    ${featuresHtml}
+                                </ul>
+                                ${pkg.note ? `<p class="mt-4 text-xs font-semibold text-roseDeep">${pkg.note}</p>` : ''}
+                            </div>
+                            <button onclick="selectPackageForBooking('${fullLabel.replace(/'/g, "\\'")}', ${pkg.price})" class="mt-8 w-full py-3.5 rounded-full bg-charcoalBrown hover:bg-roseDeep text-cream font-rounded font-bold text-sm transition shadow-md flex items-center justify-center gap-2">
+                                <span>Chọn ${pkg.name}</span>
+                                <i class="ph-bold ph-arrow-right"></i>
+                            </button>
+                        </div>
+                    `;
+                }
+
+                const iconClass = idx === 0 ? 'ph-sparkle text-softPink' : 'ph-crown-simple text-roseAccent';
+                return `
+                    <div class="bg-warmWhite rounded-3xl p-7 sm:p-8 border border-beigeBorder shadow-polaroid flex flex-col justify-between hover:border-softPink transition duration-300">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full text-xs font-rounded font-bold bg-pastelPink text-roseDeep">${pkg.tag}</span>
+                                <i class="ph-fill ${iconClass} text-2xl"></i>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold text-charcoalBrown mt-4">${pkg.name}</h3>
+                            <p class="text-xs text-mutedBrown mt-1">${pkg.subtitle}</p>
+                            <div class="my-6 pb-6 border-b border-beigeBorder">
+                                <span class="font-serif text-4xl font-bold text-charcoalBrown">${priceFormatted}</span>
+                                <span class="text-xs text-mutedBrown">${pkg.unit}</span>
+                            </div>
+                            <ul class="space-y-3 text-sm text-charcoalBrown/90">
+                                ${featuresHtml}
+                            </ul>
+                            ${pkg.note ? `<p class="mt-4 text-xs font-semibold text-roseDeep">${pkg.note}</p>` : ''}
+                        </div>
+                        <button onclick="selectPackageForBooking('${fullLabel.replace(/'/g, "\\'")}', ${pkg.price})" class="mt-8 w-full py-3.5 rounded-full bg-pastelPink hover:bg-softPink text-charcoalBrown font-rounded font-bold text-sm transition flex items-center justify-center gap-2">
+                            <span>Chọn ${pkg.name}</span>
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            // 3. Render Dropdown Gói chụp chính trong Calculator
+            const baseSelect = document.getElementById('calc-base-package');
+            baseSelect.innerHTML = currentPricing.packages.map((pkg) => `
+                <option value="${pkg.price}" data-name="${pkg.name}" ${pkg.featured ? 'selected' : ''}>
+                    ${pkg.name} — ${formatCurrency(pkg.price)}
+                </option>
+            `).join('');
+
+            // 4. Render Add-ons trong Calculator
+            const addonsContainer = document.getElementById('calc-addons-container');
+            addonsContainer.innerHTML = currentPricing.addons.map((addon) => `
+                <label class="flex items-center justify-between p-3 rounded-xl bg-cream border border-beigeBorder cursor-pointer hover:border-softPink transition">
+                    <span class="flex items-center gap-2.5 text-sm text-charcoalBrown">
+                        <input type="checkbox" class="calc-addon accent-roseDeep w-4 h-4 rounded" value="${addon.price}" data-label="${addon.label}" onchange="updateCalculator()">
+                        <span>${addon.label}</span>
+                    </span>
+                    <span class="text-xs font-bold text-roseDeep">+${formatCurrency(addon.price)}</span>
+                </label>
+            `).join('');
+
+            updateCalculator();
+        }
+
+        // Danh sách dữ liệu Bộ sưu tập ảnh (Gallery Data)
+        const galleryItems = [
+            {
+                id: 7,
+                category: 'studio',
+                badge: 'Studio · Album 5 ảnh',
+                title: 'Lovely and Candy',
+                lighting: 'Ánh sáng studio mềm mại trên phông sáng',
+                desc: 'Bộ ảnh studio ngọt ngào, trong trẻo với phụ kiện đáng yêu và sắc màu nhẹ nhàng.',
+                img: '/assets/lovely-and-candy/lovely-and-candy-1.jpg',
+                images: [
+                    '/assets/lovely-and-candy/lovely-and-candy-1.jpg',
+                    '/assets/lovely-and-candy/lovely-and-candy-2.jpg',
+                    '/assets/lovely-and-candy/lovely-and-candy-3.jpg',
+                    '/assets/lovely-and-candy/lovely-and-candy-4.jpg',
+                    '/assets/lovely-and-candy/lovely-and-candy-5.jpg'
+                ]
+            },
+            {
+                id: 1,
+                category: 'studio',
+                badge: '✨ Studio Korean Vibe',
+                title: 'Nàng tiểu thư kiêu kì',
+                lighting: 'Ánh sáng studio mềm mại trên phông sáng',
+                desc: 'Concept chụp tại studio với trang phục xanh pastel, chân váy lấp lánh và bóng trái tim hồng, tôn lên vẻ kiêu kì, ngọt ngào của nàng tiểu thư.',
+                img: '/assets/nang-tieu-thu-kieu-ki.jpg'
+            }
+        ];
+
+        // Render Gallery
+        function renderGallery(filter = 'all') {
+            const grid = document.getElementById('gallery-grid');
+            const filtered = filter === 'all' ? galleryItems : galleryItems.filter(item => item.category === filter);
+
+            grid.innerHTML = filtered.map(item => `
+                <div onclick="openLightbox(${item.id})" class="group cursor-pointer bg-warmWhite rounded-3xl p-3.5 border border-beigeBorder shadow-polaroid hover:shadow-dreamy hover:-translate-y-1 transition-all duration-300">
+                    <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-pastelPink relative">
+                        <img src="${item.img}" 
+                             alt="${item.title}" 
+                             onerror="this.src='https://placehold.co/600x750/FCE4EC/4A403A?text=Korean+Concept'"
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-warmWhite/90 backdrop-blur-sm text-[11px] font-rounded font-bold text-roseDeep shadow-sm">
+                            ${item.badge}
+                        </span>
+                        <div class="absolute inset-0 bg-charcoalBrown/25 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <span class="px-4 py-2 rounded-full bg-warmWhite text-charcoalBrown font-rounded font-bold text-xs shadow-md flex items-center gap-1.5">
+                                <i class="ph-bold ph-magnifying-glass-plus"></i> Xem chi tiết
+                            </span>
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-2 px-2">
+                        <h3 class="font-serif text-xl font-bold text-charcoalBrown group-hover:text-roseDeep transition">${item.title}</h3>
+                        <p class="text-xs text-mutedBrown mt-1 line-clamp-2">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Gallery Tabs
+        function filterGallery(category) {
+            document.querySelectorAll('.gallery-tab').forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.className = 'gallery-tab active px-5 py-2.5 rounded-full text-xs sm:text-sm font-rounded font-bold transition shadow-sm bg-charcoalBrown text-cream';
+                } else {
+                    btn.className = 'gallery-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-rounded font-bold transition bg-warmWhite border border-beigeBorder text-charcoalBrown hover:border-softPink';
+                }
+            });
+            renderGallery(category);
+        }
+
+        // Lightbox Modal Functions
+        let activeAlbum = null;
+        let activePhotoIndex = 0;
+
+        function showAlbumPhoto(index) {
+            if (!activeAlbum) return;
+            const photos = activeAlbum.images || [activeAlbum.img];
+            activePhotoIndex = (index + photos.length) % photos.length;
+            const image = document.getElementById('lightbox-img');
+            image.src = photos[activePhotoIndex];
+            image.alt = activeAlbum.title + ' — Ảnh ' + (activePhotoIndex + 1);
+            document.getElementById('lightbox-photo-count').textContent = (activePhotoIndex + 1) + ' / ' + photos.length;
+            document.querySelectorAll('#lightbox-thumbnails button').forEach((button, i) => {
+                button.setAttribute('aria-pressed', String(i === activePhotoIndex));
+                button.style.borderColor = i === activePhotoIndex ? '#B76E79' : 'transparent';
+            });
+        }
+
+        function changeAlbumPhoto(direction) {
+            showAlbumPhoto(activePhotoIndex + direction);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (document.getElementById('lightbox-modal').classList.contains('hidden')) return;
+            if (event.key === 'Escape') closeLightbox();
+            if (event.key === 'ArrowLeft') changeAlbumPhoto(-1);
+            if (event.key === 'ArrowRight') changeAlbumPhoto(1);
+        });
+        function openLightbox(id) {
+            const item = galleryItems.find(x => x.id === id);
+            if (!item) return;
+
+            activeAlbum = item;
+            const photos = item.images || [item.img];
+            document.getElementById('lightbox-album-controls').classList.toggle('hidden', photos.length < 2);
+            document.getElementById('lightbox-thumbnails').innerHTML = photos.length > 1 ? photos.map((src, i) => `
+                <button type="button" onclick="showAlbumPhoto(${i})" aria-label="Xem ảnh ${i + 1}" aria-pressed="false" class="overflow-hidden rounded-lg border-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-roseDeep">
+                    <img src="${src}" alt="${item.title} — Ảnh ${i + 1}" loading="lazy" class="w-full aspect-[3/4] object-cover">
+                </button>
+            `).join('') : '';
+            showAlbumPhoto(0);
+            document.getElementById('lightbox-badge').textContent = item.badge;
+            document.getElementById('lightbox-title').textContent = item.title;
+            document.getElementById('lightbox-desc').textContent = item.desc;
+            document.getElementById('lightbox-lighting').textContent = 'Ánh sáng: ' + item.lighting;
+
+            const bookBtn = document.getElementById('lightbox-book-btn');
+            bookBtn.onclick = function() {
+                closeLightbox();
+                document.getElementById('book-package').value = 'Concept: ' + item.title;
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                showToast('Đã chọn "' + item.title + '" vào form đặt lịch!');
+            };
+
+            document.getElementById('lightbox-modal').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.add('hidden');
+        }
+
+        // Pricing Calculator Logic
+        function updateCalculator() {
+            const baseSelect = document.getElementById('calc-base-package');
+            if (!baseSelect) return;
+            let total = parseInt(baseSelect.value, 10) || 0;
+
+            document.querySelectorAll('.calc-addon:checked').forEach(cb => {
+                total += parseInt(cb.value, 10) || 0;
+            });
+
+            document.getElementById('calc-total-display').textContent = formatCurrency(total);
+        }
+
+        function applyCalculatorToBooking() {
+            const baseSelect = document.getElementById('calc-base-package');
+            const selectedOption = baseSelect.options[baseSelect.selectedIndex];
+            const baseName = selectedOption.getAttribute('data-name');
+
+            let addons = [];
+            document.querySelectorAll('.calc-addon:checked').forEach(cb => {
+                addons.push(cb.getAttribute('data-label'));
+            });
+
+            const totalText = document.getElementById('calc-total-display').textContent;
+            let summary = `${baseName}`;
+            if (addons.length > 0) {
+                summary += ` + [${addons.join(', ')}]`;
+            }
+            summary += ` — Dự kiến: ${totalText}`;
+
+            document.getElementById('book-package').value = summary;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            showToast('Đã điền gói chụp tùy chỉnh vào Form Đặt Lịch!');
+        }
+
+        function selectPackageForBooking(packageName, priceValue) {
+            document.getElementById('book-package').value = packageName;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            showToast('Đã chọn: ' + packageName);
+        }
+
+        // Booking Form Submission (Copy message + Ready for Zalo/Messenger)
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('book-name').value.trim();
+            const phone = document.getElementById('book-phone').value.trim();
+            const pkg = document.getElementById('book-package').value.trim();
+            const date = document.getElementById('book-date').value;
+            const note = document.getElementById('book-note').value.trim();
+
+            const summaryMsg = `[ĐẶT LỊCH CHỤP - CHANIE.STUDIO]\n- Khách hàng: ${name}\n- SĐT/Zalo: ${phone}\n- Gói chụp: ${pkg}\n- Ngày dự kiến: ${date || 'Chưa chọn'}\n- Ghi chú: ${note || 'Không có'}`;
+            copyTextValue(summaryMsg, `Cảm ơn ${name}! Nội dung đặt lịch đã được sao chép. Bạn có thể dán gửi ngay qua Zalo 0339 299 325 nhé! 💖`);
+        }
+
+        // Copy helper using execCommand for iframe compatibility
+        function copyTextValue(text, successMsg) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(successMsg);
+        }
+
+        /* === CÔNG CỤ QUẢN LÝ BẢNG GIÁ DÀNH CHO CHỦ STUDIO === */
+        function openPricingManager() {
+            document.getElementById('pm-promo-text').value = currentPricing.promoText || '';
+
+            // Render 3 packages editor
+            const pkgList = document.getElementById('pm-packages-list');
+            pkgList.innerHTML = currentPricing.packages.map((pkg, idx) => `
+                <div class="bg-cream p-4 rounded-2xl border border-beigeBorder space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="font-rounded font-bold text-roseDeep text-xs">Gói số #${idx + 1}</span>
+                        <label class="flex items-center gap-1.5 text-[11px] font-semibold text-charcoalBrown cursor-pointer">
+                            <input type="radio" name="pm-featured" value="${idx}" ${pkg.featured ? 'checked' : ''} class="accent-roseDeep">
+                            <span>Làm gói Nổi bật</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-mutedBrown block">Tên gói chụp:</label>
+                        <input type="text" id="pm-pkg-name-${idx}" value="${pkg.name}" class="w-full px-3 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder font-bold text-charcoalBrown">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[11px] text-mutedBrown block">Giá tiền (VNĐ):</label>
+                            <input type="number" step="50000" id="pm-pkg-price-${idx}" value="${pkg.price}" class="w-full px-3 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder font-bold text-roseDeep">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-mutedBrown block">Thời lượng / Đơn vị:</label>
+                            <input type="text" id="pm-pkg-unit-${idx}" value="${pkg.unit}" class="w-full px-3 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder text-charcoalBrown">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-mutedBrown block">Nhãn phụ phía trên:</label>
+                        <input type="text" id="pm-pkg-tag-${idx}" value="${pkg.tag}" class="w-full px-3 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder text-charcoalBrown">
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-mutedBrown block">Mô tả ngắn:</label>
+                        <input type="text" id="pm-pkg-sub-${idx}" value="${pkg.subtitle}" class="w-full px-3 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder text-charcoalBrown">
+                    </div>
+                    <div>
+                        <label class="text-[11px] text-mutedBrown block">Quyền lợi (Mỗi dòng 1 quyền lợi):</label>
+                        <textarea id="pm-pkg-feat-${idx}" rows="4" class="w-full px-3 py-1.5 rounded-lg bg-warmWhite border border-beigeBorder text-xs text-charcoalBrown">${(pkg.features || []).join('\n')}</textarea>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Addons editor
+            renderAddonEditorRows(currentPricing.addons);
+
+            document.getElementById('pricing-manager-modal').classList.remove('hidden');
+        }
+
+        function renderAddonEditorRows(addons) {
+            const list = document.getElementById('pm-addons-list');
+            list.innerHTML = addons.map((addon, idx) => `
+                <div class="flex items-center gap-2 pm-addon-row">
+                    <input type="text" placeholder="Tên dịch vụ cộng thêm" value="${addon.label}" class="pm-addon-label flex-1 px-3 py-2 rounded-xl bg-warmWhite border border-beigeBorder text-charcoalBrown">
+                    <input type="number" step="50000" placeholder="Giá (VNĐ)" value="${addon.price}" class="pm-addon-price w-36 px-3 py-2 rounded-xl bg-warmWhite border border-beigeBorder font-bold text-roseDeep">
+                    <button type="button" onclick="this.parentElement.remove()" class="p-2 rounded-xl bg-warmWhite border border-beigeBorder text-mutedBrown hover:text-roseDeep" title="Xóa dịch vụ này">
+                        <i class="ph-bold ph-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addNewAddonRow() {
+            const list = document.getElementById('pm-addons-list');
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-2 pm-addon-row';
+            div.innerHTML = `
+                <input type="text" placeholder="VD: 🎂 Chuẩn bị bánh kem & hoa tươi" value="" class="pm-addon-label flex-1 px-3 py-2 rounded-xl bg-warmWhite border border-beigeBorder text-charcoalBrown">
+                <input type="number" step="50000" placeholder="300000" value="300000" class="pm-addon-price w-36 px-3 py-2 rounded-xl bg-warmWhite border border-beigeBorder font-bold text-roseDeep">
+                <button type="button" onclick="this.parentElement.remove()" class="p-2 rounded-xl bg-warmWhite border border-beigeBorder text-mutedBrown hover:text-roseDeep">
+                    <i class="ph-bold ph-trash"></i>
+                </button>
+            `;
+            list.appendChild(div);
+        }
+
+        function closePricingManager() {
+            document.getElementById('pricing-manager-modal').classList.add('hidden');
+        }
+
+        function collectPricingFromModal() {
+            const promoText = document.getElementById('pm-promo-text').value.trim();
+            const featuredRadio = document.querySelector('input[name="pm-featured"]:checked');
+            const featuredIdx = featuredRadio ? parseInt(featuredRadio.value, 10) : 1;
+
+            const packages = currentPricing.packages.map((pkg, idx) => {
+                const rawFeatures = document.getElementById(`pm-pkg-feat-${idx}`).value;
+                const features = rawFeatures.split('\n').map(s => s.trim()).filter(Boolean);
+                return {
+                    id: pkg.id,
+                    name: document.getElementById(`pm-pkg-name-${idx}`).value.trim() || pkg.name,
+                    price: parseInt(document.getElementById(`pm-pkg-price-${idx}`).value, 10) || 0,
+                    unit: document.getElementById(`pm-pkg-unit-${idx}`).value.trim(),
+                    tag: document.getElementById(`pm-pkg-tag-${idx}`).value.trim(),
+                    subtitle: document.getElementById(`pm-pkg-sub-${idx}`).value.trim(),
+                    featured: idx === featuredIdx,
+                    features: features
+                };
+            });
+
+            const addons = [];
+            document.querySelectorAll('.pm-addon-row').forEach(row => {
+                const label = row.querySelector('.pm-addon-label').value.trim();
+                const price = parseInt(row.querySelector('.pm-addon-price').value, 10) || 0;
+                if (label) {
+                    addons.push({ label, price });
+                }
+            });
+
+            return { promoText, packages, addons };
+        }
+
+        function savePricingChanges(downloadHtmlFile = false) {
+            currentPricing = collectPricingFromModal();
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(currentPricing));
+            } catch (e) {
+                console.warn('LocalStorage error:', e);
+            }
+
+            renderPricingSection();
+            closePricingManager();
+
+            if (downloadHtmlFile) {
+                exportUpdatedHtmlFile();
+            } else {
+                showToast('Đã cập nhật Bảng giá mới lên trang web! ✨');
+            }
+        }
+
+        function resetDefaultPricing() {
+            localStorage.removeItem(STORAGE_KEY);
+            currentPricing = JSON.parse(JSON.stringify(defaultPricingData));
+            renderPricingSection();
+            closePricingManager();
+            showToast('Đã khôi phục về Bảng giá mặc định ban đầu.');
+        }
+
+        // Xuất ra file index.html mới có gắn cứng bảng giá vừa chỉnh sửa để chủ Studio tải lên mạng
+        function exportUpdatedHtmlFile() {
+            let fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+            const newBlock = `/* PRICING_DATA_START */\n        const defaultPricingData = ${JSON.stringify(currentPricing, null, 12)};\n        /* PRICING_DATA_END */`;
+            fullHtml = fullHtml.replace(/\/\* PRICING_DATA_START \*\/[\s\S]*?\/\* PRICING_DATA_END \*\//, newBlock);
+
+            const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast('Đã tải về file "index.html" chứa bảng giá mới! Bạn chỉ cần kéo thả file này lên Netlify/Tiiny.host. 💖');
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            menu.classList.toggle('hidden');
+            icon.className = menu.classList.contains('hidden') ? 'ph ph-list text-2xl' : 'ph ph-x text-2xl';
+        }
+
+        // Toast Helper
+        let toastTimeout;
+        function showToast(message) {
+            const box = document.getElementById('toast-box');
+            const msg = document.getElementById('toast-message');
+            msg.textContent = message;
+            box.classList.remove('hidden');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                box.classList.add('hidden');
+            }, 4500);
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            renderGallery('all');
+            renderPricingSection();
+        };
+    </script>
+</body>
+</html>
