@@ -363,6 +363,9 @@
                 <button onclick="filterGallery('outdoor')" data-filter="outdoor" class="gallery-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-rounded font-bold transition bg-warmWhite border border-beigeBorder text-charcoalBrown hover:border-softPink">
                     🌿 Chụp ngoại cảnh
                 </button>
+                <button onclick="filterGallery('couple')" data-filter="couple" class="gallery-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-rounded font-bold transition bg-warmWhite border border-beigeBorder text-charcoalBrown hover:border-softPink">
+                    ♡ Couple
+                </button>
             </div>
 
             <!-- Gallery Grid (Rendered by JS) -->
@@ -930,6 +933,29 @@
         // Danh sách dữ liệu Bộ sưu tập ảnh (Gallery Data)
         const galleryItems = [
         {
+            id: 13,
+            category: 'outdoor',
+            tags: ['couple'],
+            badge: 'Ngoại cảnh · Couple · Album 11 ảnh',
+            title: 'Our Love story',
+            lighting: 'Ánh sáng tự nhiên bên biển',
+            desc: 'Câu chuyện tình yêu dịu dàng bên biển xanh, nắng vàng và những khoảnh khắc nắm tay nhau.',
+            img: "LCHI8958 copy.jpg",
+            images: [
+          "LCHI8958 copy.jpg",
+          "LCHI9022 copy.jpg",
+          "LCHI9155 copy_1.jpg",
+          "LCHI9160 copy.jpg",
+          "LCHI9177 copy_1.jpg",
+          "LCHI9282 copy.jpg",
+          "LCHI9286 copy.jpg",
+          "LCHI9431 copy.jpg",
+          "Untitled-1.jpg",
+          "LCHI9482 copy.jpg",
+          "LCHI9258 copy.jpg"
+]
+        },
+        {
             id: 12,
             category: 'outdoor',
             badge: 'Ngoại cảnh · Album 11 ảnh',
@@ -982,7 +1008,7 @@
         // Render Gallery
         function renderGallery(filter = 'all') {
             const grid = document.getElementById('gallery-grid');
-            const filtered = filter === 'all' ? galleryItems : galleryItems.filter(item => item.category === filter);
+            const filtered = filter === 'all' ? galleryItems : galleryItems.filter(item => item.category === filter || (item.tags || []).includes(filter));
 
             grid.innerHTML = filtered.map(item => `
                 <div onclick="openLightbox(${item.id})" class="group cursor-pointer bg-warmWhite rounded-3xl p-3.5 border border-beigeBorder shadow-polaroid hover:shadow-dreamy hover:-translate-y-1 transition-all duration-300">
