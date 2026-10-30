@@ -403,7 +403,7 @@
             </div>
 
             <!-- Main Packages (Rendered Dynamically by JS) -->
-            <div id="pricing-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+            <div id="pricing-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
                 <!-- Populated by renderPricingSection() -->
             </div>
 
@@ -794,6 +794,22 @@
                         "Tặng kèm 01 video clip ngắn Behind-the-scenes",
                         "Giao toàn bộ file gốc ngay trong ngày"
                     ]
+                },
+                {
+                    id: "pkg-couple",
+                    tag: "Couple · Ngoại cảnh",
+                    name: "Gói Chụp Couple",
+                    subtitle: "Lưu giữ câu chuyện tình yêu của hai bạn qua những khoảnh khắc tự nhiên",
+                    price: 0,
+                    unit: "/ báo giá theo yêu cầu",
+                    note: "Liên hệ Chanie để nhận tư vấn và báo giá chính xác cho 2 người.",
+                    featured: false,
+                    features: [
+                        "Tư vấn concept và địa điểm chụp cho cặp đôi",
+                        "Hướng dẫn tạo dáng và tương tác tự nhiên",
+                        "Thời lượng, số ảnh chỉnh sửa và dịch vụ đi kèm sẽ thống nhất khi đặt lịch",
+                        "Tham khảo album Our Love story trong mục Chụp ngoại cảnh / Couple"
+                    ]
                 }
             ],
             addons: [
@@ -841,7 +857,7 @@
             const container = document.getElementById('pricing-cards-container');
             container.innerHTML = currentPricing.packages.map((pkg, idx) => {
                 const isFeatured = pkg.featured;
-                const priceFormatted = formatCurrency(pkg.price);
+                const priceFormatted = pkg.id === "pkg-couple" && !pkg.price ? "Liên hệ" : formatCurrency(pkg.price);
                 const fullLabel = `${pkg.name} (${priceFormatted})`;
                 const featuresHtml = (pkg.features || []).map(f => `
                     <li class="flex items-start gap-2.5">
@@ -909,7 +925,7 @@
 
             // 3. Render Dropdown Gói chụp chính trong Calculator
             const baseSelect = document.getElementById('calc-base-package');
-            baseSelect.innerHTML = currentPricing.packages.map((pkg) => `
+            baseSelect.innerHTML = currentPricing.packages.filter(pkg => pkg.price > 0).map((pkg) => `
                 <option value="${pkg.price}" data-name="${pkg.name}" ${pkg.featured ? 'selected' : ''}>
                     ${pkg.name} — ${formatCurrency(pkg.price)}
                 </option>
