@@ -827,7 +827,14 @@
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
                 if (saved) {
-                    return JSON.parse(saved);
+                    const stored = JSON.parse(saved);
+                    // Preserve user edits while ensuring newly published packages appear.
+                    if (stored && Array.isArray(stored.packages)) {
+                        defaultPricingData.packages.forEach(pkg => {
+                            if (!stored.packages.some(existing => existing.id === pkg.id)) stored.packages.push(pkg);
+                        });
+                        return stored;
+                    }
                 }
             } catch (e) {
                 console.warn('Không thể đọc LocalStorage:', e);
