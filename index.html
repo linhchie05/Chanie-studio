@@ -462,6 +462,76 @@
     </section>
 
     <!-- 5. THÔNG TIN LIÊN HỆ & ĐẶT LỊCH (CONTACT & BIO LINKS) -->
+
+    <!-- LỊCH TRỐNG STUDIO - shared availability managed via GitHub -->
+    <section id="availability" class="py-16 bg-warmWhite border-t border-beigeBorder">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="rounded-3xl border border-softPink bg-cream p-5 sm:p-8 shadow-polaroid">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <span class="text-xs font-rounded font-bold tracking-widest text-roseDeep uppercase">Lịch trống của Chanie</span>
+              <h2 class="font-serif text-3xl text-charcoalBrown font-bold mt-2">Chọn giờ chụp phù hợp với bạn ♡</h2>
+              <p class="text-sm text-mutedBrown mt-2">Giờ bên dưới là lịch Chanie còn nhận chụp. Vui lòng nhắn tin để xác nhận trước khi đặt cọc nhé!</p>
+            </div>
+            <button id="av-owner-open" type="button" class="text-sm text-mutedBrown underline underline-offset-4 hover:text-roseDeep self-start" onclick="avToggleOwner()">Chủ studio cập nhật lịch</button>
+          </div>
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <div class="flex rounded-full border border-beigeBorder p-1 bg-warmWhite" role="group" aria-label="Chế độ xem lịch">
+              <button type="button" id="av-day-btn" onclick="avSetView('day')" class="px-4 py-2 rounded-full text-sm font-bold">Ngày</button>
+              <button type="button" id="av-week-btn" onclick="avSetView('week')" class="px-4 py-2 rounded-full text-sm font-bold">Tuần</button>
+              <button type="button" id="av-month-btn" onclick="avSetView('month')" class="px-4 py-2 rounded-full text-sm font-bold">Tháng</button>
+            </div>
+            <label class="text-sm text-mutedBrown" for="av-date">Chọn ngày</label>
+            <input type="date" id="av-date" onchange="avChangeDate(this.value)" class="px-3 py-2 rounded-xl border border-beigeBorder bg-warmWhite text-charcoalBrown text-sm" />
+            <button type="button" onclick="avMove(-1)" class="px-3 py-2 rounded-xl bg-warmWhite border border-beigeBorder" aria-label="Kỳ trước">‹</button>
+            <button type="button" onclick="avMove(1)" class="px-3 py-2 rounded-xl bg-warmWhite border border-beigeBorder" aria-label="Kỳ sau">›</button>
+          </div>
+          <div id="av-period" class="font-rounded font-bold text-charcoalBrown mt-5 mb-3"></div>
+          <div id="av-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" aria-live="polite"></div>
+          <p id="av-status" class="text-xs text-mutedBrown mt-4">Đang tải lịch trống…</p>
+          <div id="av-owner" class="hidden mt-8 pt-6 border-t border-beigeBorder">
+            <h3 class="font-serif text-2xl text-charcoalBrown font-bold">Quản lý lịch trống · Chủ studio</h3>
+            <p class="text-sm text-mutedBrown mt-2">Chỉnh sửa lịch lặp mỗi tuần hoặc ghi đè riêng một ngày (ngày nghỉ, ngày kín lịch, lịch phát sinh). Sau khi bấm Lưu lên GitHub, tất cả khách đều xem được lịch mới.</p>
+            <div class="mt-4 rounded-xl border border-beigeBorder p-4 bg-warmWhite">
+              <label for="av-token" class="block text-sm font-bold text-charcoalBrown">GitHub fine-grained personal access token (quyền Contents: Read and write cho repo Chanie-studio)</label>
+              <input type="password" id="av-token" autocomplete="off" placeholder="Dán token để lưu — không lưu trong trình duyệt" class="mt-2 w-full px-3 py-3 rounded-xl border border-beigeBorder bg-cream text-sm" />
+              <p class="text-xs text-mutedBrown mt-2">Token chỉ được gửi trực tiếp đến api.github.com để lưu tệp availability.json; không nhắn token cho bất kỳ ai. Bạn cần nhập lại khi cập nhật lần sau.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-5 mt-5">
+              <div class="rounded-xl bg-warmWhite border border-beigeBorder p-4">
+                <h4 class="font-rounded font-bold text-charcoalBrown">1. Lịch lặp lại mỗi tuần</h4>
+                <label for="av-weekday" class="text-sm text-mutedBrown block mt-3">Thứ trong tuần</label>
+                <select id="av-weekday" class="w-full mt-1 px-3 py-2 border border-beigeBorder rounded-lg bg-cream" onchange="avFillWeekly()">
+                  <option value="1">Thứ Hai</option><option value="2">Thứ Ba</option><option value="3">Thứ Tư</option><option value="4">Thứ Năm</option><option value="5">Thứ Sáu</option><option value="6">Thứ Bảy</option><option value="0">Chủ nhật</option>
+                </select>
+                <label for="av-week-times" class="text-sm text-mutedBrown block mt-3">Giờ trống (ngăn cách bằng dấu phẩy)</label>
+                <textarea id="av-week-times" rows="3" placeholder="Ví dụ: 08:00, 10:30, 14:00, 16:30" class="w-full mt-1 px-3 py-2 border border-beigeBorder rounded-lg bg-cream text-sm"></textarea>
+                <button type="button" onclick="avApplyWeekly()" class="mt-3 w-full py-3 rounded-full bg-pastelPink hover:bg-softPink text-charcoalBrown font-bold text-sm">Áp dụng cho thứ này hằng tuần</button>
+                <p class="text-xs text-mutedBrown mt-2">Để trống ô giờ và áp dụng nếu không nhận lịch vào thứ đó.</p>
+              </div>
+              <div class="rounded-xl bg-warmWhite border border-beigeBorder p-4">
+                <h4 class="font-rounded font-bold text-charcoalBrown">2. Sửa riêng một ngày</h4>
+                <label for="av-edit-date" class="text-sm text-mutedBrown block mt-3">Ngày cần sửa</label>
+                <input type="date" id="av-edit-date" class="w-full mt-1 px-3 py-2 border border-beigeBorder rounded-lg bg-cream" onchange="avFillDate()" />
+                <label for="av-date-times" class="text-sm text-mutedBrown block mt-3">Giờ trống trong ngày</label>
+                <textarea id="av-date-times" rows="3" placeholder="Ví dụ: 09:00, 13:30" class="w-full mt-1 px-3 py-2 border border-beigeBorder rounded-lg bg-cream text-sm"></textarea>
+                <div class="flex flex-wrap gap-2 mt-3">
+                  <button type="button" onclick="avApplyDate()" class="px-4 py-2 rounded-full bg-pastelPink font-bold text-sm">Đặt lịch riêng ngày này</button>
+                  <button type="button" onclick="avCloseDate()" class="px-4 py-2 rounded-full border border-beigeBorder text-sm">Đánh dấu hết lịch</button>
+                  <button type="button" onclick="avResetDate()" class="px-4 py-2 rounded-full border border-beigeBorder text-sm">Dùng lại lịch tuần</button>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-3 items-center mt-5">
+              <button type="button" id="av-save" onclick="avSave()" class="px-6 py-3 rounded-full bg-charcoalBrown text-cream font-bold hover:bg-roseDeep">Lưu lịch lên GitHub</button>
+              <button type="button" onclick="avReload()" class="px-5 py-3 rounded-full border border-beigeBorder text-sm">Tải lại lịch đã lưu</button>
+              <span id="av-owner-status" class="text-sm text-mutedBrown" role="status"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="py-20 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
@@ -1423,10 +1493,115 @@
             }, 4500);
         }
 
+
+        // ===== Public shared studio availability =====
+        const AV_REPO = 'linhchie05/Chanie-studio';
+        const AV_FILE = 'availability.json';
+        const avDays = ['Chủ nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+        let avData = { timezone:'Asia/Ho_Chi_Minh', weekly:{}, dates:{}, updatedAt:null };
+        let avSha = null;
+        let avView = 'week';
+        let avSelected = avToday();
+        let avDirty = false;
+        function avToday() {
+          // Ensure date is calculated in Vietnam regardless of client's time zone.
+          return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+        }
+        function avDateObj(str) { return new Date(str+'T12:00:00Z'); }
+        function avIso(date) { return date.toISOString().slice(0,10); }
+        function avShift(str,n) { let d=avDateObj(str); d.setUTCDate(d.getUTCDate()+n); return avIso(d); }
+        function avLabel(str) { return avDateObj(str).toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}); }
+        function avWeekday(str) { return avDateObj(str).getUTCDay(); }
+        function avHours(str) {
+          let raw=Object.prototype.hasOwnProperty.call(avData.dates,str) ? avData.dates[str] : avData.weekly[String(avWeekday(str))];
+          return Array.isArray(raw) ? raw : [];
+        }
+        function avParseTimes(str) {
+          const items=str.split(/[,;\n]+/).map(v=>v.trim()).filter(Boolean);
+          if(items.some(v=>!/^([01]\d|2[0-3]):[0-5]\d$/.test(v))) throw Error('Giờ phải theo định dạng HH:MM (ví dụ 09:00, 14:30).');
+          return [...new Set(items)].sort();
+        }
+        function avSetView(v) { avView=v; avRender(); }
+        function avChangeDate(v) { if(v) {avSelected=v; document.getElementById('av-edit-date').value=v; avFillDate(); avRender();} }
+        function avMove(step) {
+          if(avView==='day') avSelected=avShift(avSelected,step);
+          else if(avView==='week') avSelected=avShift(avSelected,step*7);
+          else { let d=avDateObj(avSelected); let day=d.getUTCDate();d.setUTCDate(1);d.setUTCMonth(d.getUTCMonth()+step);let last=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate();d.setUTCDate(Math.min(day,last));avSelected=avIso(d); }
+          document.getElementById('av-date').value=avSelected;
+          document.getElementById('av-edit-date').value=avSelected;avFillDate();avRender();
+        }
+        function avRender() {
+          ['day','week','month'].forEach(v=>{let b=document.getElementById('av-'+v+'-btn'); if(!b)return;b.className='px-4 py-2 rounded-full text-sm font-bold '+(avView===v?'bg-pastelPink text-charcoalBrown':'text-mutedBrown hover:bg-cream');});
+          let dates=[];
+          if(avView==='day') dates=[avSelected];
+          if(avView==='week') {let start=avShift(avSelected,-((avWeekday(avSelected)+6)%7));for(let i=0;i<7;i++) dates.push(avShift(start,i));}
+          if(avView==='month') {let d=avDateObj(avSelected),year=d.getUTCFullYear(),month=d.getUTCMonth(),last=new Date(Date.UTC(year,month+1,0)).getUTCDate();for(let i=1;i<=last;i++)dates.push(avIso(new Date(Date.UTC(year,month,i,12))));}
+          document.getElementById('av-period').textContent=avView==='month'?'Tháng '+(avDateObj(avSelected).getUTCMonth()+1)+' / '+avDateObj(avSelected).getUTCFullYear() : avView==='week'?'Tuần '+avLabel(dates[0])+' – '+avLabel(dates[dates.length-1]):avDays[avWeekday(avSelected)]+', '+avLabel(avSelected);
+          let today=avToday();
+          document.getElementById('av-grid').innerHTML=dates.map(day=>{
+            const hours=day<today?[]:avHours(day);
+            const cells=hours.length?hours.map(h=>'<span class="inline-flex px-2.5 py-1 rounded-full border border-softPink bg-pastelPink/60 text-charcoalBrown text-xs font-bold">'+h+'</span>').join(' '):'<span class="text-xs text-mutedBrown">'+(day<today?'Đã qua':'Chưa có giờ trống / hết lịch')+'</span>';
+            return '<div class="p-4 rounded-2xl bg-warmWhite border border-beigeBorder '+(day===today?'ring-1 ring-softPink':'')+'"><div class="flex justify-between items-center gap-2 mb-3"><strong class="text-charcoalBrown text-sm">'+avDays[avWeekday(day)]+'</strong><span class="text-xs text-mutedBrown">'+avLabel(day)+'</span></div><div class="flex gap-1.5 flex-wrap">'+cells+'</div></div>';
+          }).join('');
+        }
+        function avToggleOwner() {document.getElementById('av-owner').classList.toggle('hidden');}
+        function avFillWeekly() {let k=document.getElementById('av-weekday').value;document.getElementById('av-week-times').value=(avData.weekly[k]||[]).join(', ');}
+        function avFillDate() {let date=document.getElementById('av-edit-date').value;document.getElementById('av-date-times').value=(avData.dates[date]||[]).join(', ');}
+        function avOwnerMsg(msg) {document.getElementById('av-owner-status').textContent=msg;}
+        function avApplyWeekly() {
+          try {let k=document.getElementById('av-weekday').value;avData.weekly[k]=avParseTimes(document.getElementById('av-week-times').value);avDirty=true;avRender();avOwnerMsg('Đã sửa lịch tuần trong bản nháp. Nhớ bấm “Lưu lịch lên GitHub”.');} catch(e){avOwnerMsg(e.message);}
+        }
+        function avApplyDate() {
+          try {let day=document.getElementById('av-edit-date').value;if(!day)throw Error('Hãy chọn ngày.');avData.dates[day]=avParseTimes(document.getElementById('av-date-times').value);avDirty=true;avRender();avOwnerMsg('Đã sửa lịch ngày trong bản nháp. Nhớ bấm Lưu.');}catch(e){avOwnerMsg(e.message);}
+        }
+        function avCloseDate() {let day=document.getElementById('av-edit-date').value;if(!day)return avOwnerMsg('Hãy chọn ngày.');avData.dates[day]=[];avFillDate();avDirty=true;avRender();avOwnerMsg('Đã đánh dấu hết lịch cho '+avLabel(day)+'. Nhớ bấm Lưu.');}
+        function avResetDate() {let day=document.getElementById('av-edit-date').value;if(!day)return avOwnerMsg('Hãy chọn ngày.');delete avData.dates[day];avFillDate();avDirty=true;avRender();avOwnerMsg('Đã khôi phục lịch lặp hằng tuần. Nhớ bấm Lưu.');}
+        async function avReload() {
+          try {
+            const res=await fetch('https://api.github.com/repos/'+AV_REPO+'/contents/'+AV_FILE+'?ref=main&t='+Date.now(),{headers:{'Accept':'application/vnd.github+json'},cache:'no-store'});
+            if(!res.ok)throw Error('Không tải được lịch từ GitHub (HTTP '+res.status+').');
+            const file=await res.json();
+            // GitHub returns base64 UTF-8 in the Contents endpoint.
+            const bytes=Uint8Array.from(atob(file.content.replace(/\s/g,'')),c=>c.charCodeAt(0));
+            const parsed=JSON.parse(new TextDecoder().decode(bytes));
+            avData={timezone:'Asia/Ho_Chi_Minh',weekly:parsed.weekly||{},dates:parsed.dates||{},updatedAt:parsed.updatedAt||null};
+            avSha=file.sha;avDirty=false;avRender();avFillWeekly();avFillDate();
+            document.getElementById('av-status').textContent='Lịch cập nhật: '+(avData.updatedAt?new Date(avData.updatedAt).toLocaleString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh'}):'Chưa có lịch được đăng')+'. Giờ hiển thị theo Việt Nam.';
+            avOwnerMsg('Đã tải lịch mới nhất.');
+          } catch(e) {document.getElementById('av-status').textContent='Không tải được lịch trực tuyến. Vui lòng tải lại trang.';avOwnerMsg(e.message);}
+        }
+        async function avSave() {
+          let token=document.getElementById('av-token').value.trim();
+          if(!token)return avOwnerMsg('Bạn cần nhập GitHub token có quyền Contents: Read and write.');
+          if(!avSha)return avOwnerMsg('Hãy tải lại lịch trước khi lưu.');
+          let btn=document.getElementById('av-save');btn.disabled=true;avOwnerMsg('Đang lưu lịch...');
+          try {
+            let next={...avData,updatedAt:new Date().toISOString()};
+            let utf8=new TextEncoder().encode(JSON.stringify(next,null,2)+'\n');
+            let binary='';utf8.forEach(b=>binary+=String.fromCharCode(b));
+            const response=await fetch('https://api.github.com/repos/'+AV_REPO+'/contents/'+AV_FILE,{
+              method:'PUT',headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'Content-Type':'application/json','X-GitHub-Api-Version':'2022-11-28'},
+              body:JSON.stringify({message:'Update Chanie studio availability',content:btoa(binary),sha:avSha,branch:'main'})
+            });
+            if(!response.ok){let e=await response.json().catch(()=>({}));throw Error('GitHub không lưu được (HTTP '+response.status+'). '+(e.message||'Kiểm tra token/quyền hoặc tải lại lịch nếu có xung đột.'));}
+            avData=next;avDirty=false;
+            document.getElementById('av-token').value=''; // never retain credential
+            avOwnerMsg('Đã lưu thành công! Khách sẽ thấy giờ mới khi tải lại trang.');
+            await avReload();
+          }catch(e){avOwnerMsg(e.message);}finally{btn.disabled=false;}
+        }
+        function avInit() {
+          let day=avToday();avSelected=day;
+          document.getElementById('av-date').value=day;
+          document.getElementById('av-edit-date').value=day;
+          avRender();avReload();
+        }
+
         // Initialize on load
         window.onload = function() {
             renderGallery('all');
             renderPricingSection();
+            avInit();
         };
     </script>
 </body>
