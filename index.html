@@ -473,7 +473,7 @@
               <h2 class="font-serif text-3xl text-charcoalBrown font-bold mt-2">Chọn giờ chụp phù hợp với bạn ♡</h2>
               <p class="text-sm text-mutedBrown mt-2">Giờ bên dưới là lịch Chanie còn nhận chụp. Vui lòng nhắn tin để xác nhận trước khi đặt cọc nhé!</p>
             </div>
-            <button id="av-owner-open" type="button" class="text-sm text-mutedBrown underline underline-offset-4 hover:text-roseDeep self-start" onclick="avToggleOwner()">Chủ studio cập nhật lịch</button>
+            
           </div>
           <div class="mt-6 flex flex-wrap items-center gap-3">
             <div class="flex rounded-full border border-beigeBorder p-1 bg-warmWhite" role="group" aria-label="Chế độ xem lịch">
@@ -1595,6 +1595,7 @@
           document.getElementById('av-date').value=day;
           document.getElementById('av-edit-date').value=day;
           avRender();avReload();
+          if (window.location.hash === "#availability-admin") { document.getElementById("av-owner").classList.remove("hidden"); document.getElementById("availability").scrollIntoView(); }
         }
 
         // Initialize on load
